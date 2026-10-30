@@ -1,50 +1,53 @@
-# Maritime Chartering Radar
+# رادار التأجير البحري — Maritime Chartering Radar
 
-## Public application
+## روابط الاستخدام
 
-- Application: https://hanymahdy2.github.io/Railway/
-- Dated vessel-screening report: https://hanymahdy2.github.io/Railway/leads_2026-10-30.html
-- Screening data CSV: https://hanymahdy2.github.io/Railway/charter_leads_2026-10-30.csv
-- GitHub Actions deployment history: https://github.com/hanymahdy2/Railway/actions
+- **الموقع:** https://hanymahdy2.github.io/Railway/
+- **تقرير فحص السفن بتاريخ 30 أكتوبر 2026:** https://hanymahdy2.github.io/Railway/leads_2026-10-30.html
+- **ملف بيانات الفحص CSV:** https://hanymahdy2.github.io/Railway/charter_leads_2026-10-30.csv
+- **سجل النشر والتحديثات:** https://github.com/hanymahdy2/Railway/actions
 
-## Current browser features
+## الوظائف الموجودة حاليًا
 
-- Enter multiple charter requirements in one text box.
-- Separate requirements with headings such as `Requirement 1:`, `Vessel 2:`, numbered sections, or blank-line-separated paragraphs.
-- Extract vessel quantity, DWT, TEU, crane/gear requirements, vessel type, target region, and charter duration where expressed clearly.
-- Scan all rows in the currently imported dataset for every requirement; do not stop after the first candidate.
-- Display a separate ranked shortlist for each requirement, with match score, recorded specs, port/area, open date, owner, broker/contact, source link, and AIS timestamp when supplied.
-- Recognize common Arabic and English quantities, minimums, regions and vessel types.
+- إدخال أكثر من طلب تأجير في نفس مربع النص.
+- فصل الطلبات باستخدام عناوين مثل `Requirement 1:` و`Requirement 2:` أو `Vessel 1:`، أو باستخدام فقرات منفصلة.
+- قراءة عدد السفن المطلوب، وDWT، وTEU، ومواصفات الأوناش/المعدات، ونوع السفينة، والمنطقة، ومدة التأجير عندما تكون مكتوبة بوضوح.
+- فحص كل السجلات الموجودة في قاعدة البيانات المستوردة لكل طلب، وليس الاكتفاء بأول سجل مطابق.
+- عرض قائمة مستقلة ومرتبة لكل طلب، تشمل درجة المطابقة، ومدى اكتمال البيانات، والمواصفات المسجلة، والموقع/ميناء Open، وتاريخ Open، والمالك، والوسيط/التواصل، والمصدر، وتوقيت AIS إذا كانت هذه البيانات موجودة في الملف المستورد.
+- فهم عدد من الأرقام والمصطلحات والمناطق وأنواع السفن باللغتين العربية والإنجليزية.
+- تنزيل قالب CSV خاص بعروض السفن ومواقع Open، وقالب منفصل لجهات الاتصال.
 
-## How to use
+## طريقة الاستخدام
 
-1. Open the application link above.
-2. Load the basic vessel-particulars database, or import your own CSV.
-3. Paste multiple requirements. Use one heading per requirement, or leave a blank line between separate paragraphs.
-4. Select **Analyze all requirements and find matches** (Arabic UI: **حلّل كل الطلبات وابحث عن التطابقات**).
-5. Review each requirement's candidates, match basis, source, availability claim and position timestamp.
-6. For additional open-position and AIS data, import a permitted CSV with fields such as:
+1. افتح رابط الموقع أعلاه.
+2. حمّل قاعدة خصائص السفن الأساسية، أو استورد ملف CSV خاصًا بك.
+3. اكتب أكثر من طلب في مربع الطلبات. افصل كل طلب بعنوان مستقل أو اترك سطرًا فارغًا بين فقرات الطلبات.
+4. اضغط **حلّل كل الطلبات وابحث عن التطابقات**.
+5. راجع النتائج الخاصة بكل طلب، مع درجة المطابقة واكتمال البيانات وحالة التوفر المسجلة والمصدر.
+6. لتنزيل قالب إدخال عروض السفن، اضغط **تنزيل قالب عروض ومواقع السفن CSV**. املأه ببيانات عروض موثوقة، ثم استخدم **استيراد CSV**.
 
-`name, imo, vessel_type, dwt, teu, cranes_mt, area, current_position, open_port, open_date, availability_status, owner, owner_email, commercial_manager, commercial_manager_email, broker, broker_email, contact, lat, lon, ais_timestamp, published_at, source_url`
+الأعمدة المتاحة في القالب تشمل:
 
-The app scans the full imported dataset, but shows the top 20 candidates per requirement in the results table.
+`name, imo, vessel_type, dwt, teu, cranes_mt, area, current_position, current_port, open_port, open_date, availability_status, owner, owner_email, commercial_manager, commercial_manager_email, ism_manager, broker, broker_email, contact, contact_phone, lat, lon, ais_timestamp, published_at, source_url, notes`
 
-## Important data limitations
+يعرض البرنامج أفضل 20 مرشحًا لكل طلب. ويجري الفحص على كامل الملف المستورد، حتى إن كان عدد السجلات أكبر من المعروض في الجدول.
 
-- The bundled public vessel-particulars CSV is a static identity/specifications dataset. It does **not** by itself provide live positions or current open-for-charter availability.
-- GitHub Pages is a static website. This build does **not** yet connect to a live AIS provider, chartering circular inbox, or a live global open-tonnage network.
-- AIS position is not proof that a vessel is unemployed, free, or open for charter.
-- An imported `Open` / `Free` / open-port / open-date claim is labelled as a **reported** position and must be confirmed directly with the owner or an authorized broker. Old listings should be reconfirmed.
-- Geographic matching currently uses recorded port/area text and common region aliases. Coordinates are displayed if imported, but are not automatically reverse-geocoded into a region.
-- For real live positions, AIS Trail publishes plan limits: its Free plan has a 24-hour delay and no area queries; live positions and area scanning require paid tiers. AIS alone still does not prove commercial availability. See https://aistrail.com/pricing and https://aistrail.com/docs/.
-- For open-tonnage/cargo-market circulars, BTS Coasting describes a closed chartering network, open-position exchange, inbox integration, live AIS and a Maritime API. Access requires a commercial account/agreement. See https://www.btscoasting.com/products/.
+## حدود البيانات — مهم جدًا
 
-## Repository files
+- قاعدة خصائص السفن الأساسية المرفقة هي قاعدة تعريفات ومواصفات ثابتة، وليست بثًا مباشرًا لمواقع السفن أو قوائم السفن المتاحة للتأجير.
+- الموقع منشور على GitHub Pages، وهي خدمة صفحات ثابتة. هذه النسخة **غير متصلة بعد** بمصدر AIS حي أو صندوق بريد تعميمات الوسطاء أو شبكة عالمية مباشرة لعروض Open Positions.
+- موقع السفينة في AIS لا يثبت أنها فارغة أو غير موظفة أو متاحة للتأجير.
+- إذا احتوى CSV المستورد على حالة `Open` أو `Free` أو ميناء/تاريخ Open، يعرضها البرنامج على أنها **معلومة توفر مُسجّلة تحتاج إلى تأكيد** من المالك أو الوسيط المفوض. الإعلان القديم أو الذي لا يحمل تاريخ تحديث يحتاج إعادة تحقق.
+- مطابقة المناطق تعتمد حاليًا على اسم الميناء/المنطقة المسجل في الملف وعلى بعض المرادفات الجغرافية. الإحداثيات يمكن عرضها، لكن لا يتم تحويلها تلقائيًا إلى منطقة جغرافية.
+- توضح AIS Trail أن خطتها المجانية لا توفر الموقع الحي وتستخدم بيانات متأخرة 24 ساعة ولا تشمل البحث بالمناطق؛ المواقع الحية والبحث بالمناطق يتطلبان خطة مدفوعة. بيانات AIS وحدها لا تثبت التوفر التجاري. راجع: https://aistrail.com/pricing وhttps://aistrail.com/docs/.
+- توضح BTS Coasting أنها توفر شبكة مغلقة لتبادل عروض السفن والبضائع، ومواقع Open Positions، وربط البريد الإلكتروني، وAIS، وMaritime API. يتطلب الوصول حسابًا واتفاقًا تجاريًا. راجع: https://www.btscoasting.com/products/.
 
-- `index.html`: browser application.
-- `leads_2026-10-30.html`: dated public-source vessel screening report; not a firm offer.
-- `charter_leads_2026-10-30.csv`: structured screening records for spreadsheet import.
+## الملفات
 
-## Security and publication
+- `index.html`: تطبيق المتصفح.
+- `leads_2026-10-30.html`: تقرير فحص أولي لمصادر عامة، وليس عرضًا مؤكدًا أو Firm Offer.
+- `charter_leads_2026-10-30.csv`: بيانات الفحص الأولي القابلة للاستيراد في Excel.
 
-This GitHub repository is public. Do not place API keys, passwords, private chartering circulars, confidential broker emails, or personal contact datasets in the repository. Any future provider integration must keep credentials in a server-side secret store, not in browser JavaScript or committed files.
+## الأمان والخصوصية
+
+المستودع على GitHub **عام**. لا تضع مفاتيح API أو كلمات مرور أو تعميمات تأجير سرية أو رسائل وسطاء خاصة أو قواعد اتصالات غير مصرح بنشرها داخل المستودع. أي ربط مستقبلي بمزود بيانات يجب أن يخزن مفاتيح الوصول في جهة خادمية آمنة، وليس داخل JavaScript الظاهر للمتصفح أو ملفات GitHub العامة.
